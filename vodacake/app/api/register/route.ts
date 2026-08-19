@@ -116,7 +116,7 @@ export async function POST(request: Request){
         const { data: emailData, error: emailError } =
             await resend.emails.send({
                 from: "Cake Party <onboarding@resend.dev>",
-                to: ["milkydaddyy@gmail.com"],
+                to: [email],
                 subject: "Cake Party Registration Confirmed",
                 html: `
                         <h1>Registration Confirmed!</h1>
@@ -127,7 +127,7 @@ export async function POST(request: Request){
             {
                 message: "Team registered successfully",
                 team: data,
-                // emailSent: !emailError
+                emailSent: !emailError
             },
             {
                 status: 201
