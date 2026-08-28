@@ -36,41 +36,80 @@ const Event = () => {
           
   }, []);
 
-  return (
-    <div>
-          {events.map((e) => (
-              <div key={e.id }>
-                <h2>{e.title}</h2>
+    return (
+        <div className="grid gap-6 md:grid-cols-2">
+            {events.map((e) => {
+                const registeredTeams = e.teams[0]?.count ?? 0;
+                const isFull = registeredTeams >= e.max_teams;
 
-                <p>{e.description}</p>
+                return (
+                    <div
+                        key={e.id}
+                        className="rounded-2xl border border-stone-200 bg-white p-7 shadow-sm"
+                    >
+                        <h2 className="text-2xl font-semibold text-stone-900">
+                            {e.title}
+                        </h2>
 
-                <p>Location: {e.location}</p>
+                        {e.description && (
+                            <p className="mt-2 text-sm leading-6 text-stone-500">
+                                {e.description}
+                            </p>
+                        )}
 
-                <p>
-                    Event Date:
-                    {new Date(e.event_date).toLocaleString()}
-                </p>
+                        <div className="space-y-2 border-t border-stone-100 py-5 text-sm text-stone-600">
+                            <p>
+                                <span className="font-medium text-stone-900">
+                                    Date:
+                                </span>{" "}
+                                {new Date(e.event_date).toLocaleString()}
+                            </p>
 
-                <p>
-                    Registration Deadline:
-                    {new Date(e.registration_deadline).toLocaleString()}
-                </p>
+                            <p>
+                                <span className="font-medium text-stone-900">
+                                    Location:
+                                </span>{" "}
+                                {e.location}
+                            </p>
 
-                <p>Registration: {e.teams[0]?.count ?? 0} / {e.max_teams}</p>
+                            <p>
+                                <span className="font-medium text-stone-900">
+                                    Registration deadline:
+                                </span>{" "}
+                                {new Date(e.registration_deadline).toLocaleString()}
+                            </p>
 
-                <p>Status: {e.status}</p>
-                  
-                  {(e.teams[0]?.count ?? 0) >= e.max_teams ?
-                      (<p>Registration Has Full</p>)
-                      :
-                      (<Link href={`/event/${e.id}/register-form`} className="text-blue-600 hover:underline">
-                          Register Form
-                      </Link>)
-                }
-            </div>
-      ))}
-    </div>
-  );
+                            <p>
+                                <span className="font-medium text-stone-900">
+                                    Teams:
+                                </span>{" "}
+                                {registeredTeams} / {e.max_teams}
+                            </p>
+                        </div>
+
+                        <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium capitalize text-stone-600">
+                            {e.status}
+                        </span>
+
+                        <div className="mt-4">
+                            {isFull ? (
+                                <p className="rounded-xl bg-stone-100 px-4 py-3 text-center text-sm font-medium text-stone-500">
+                                    Registration Is Full
+                                </p>
+                            ) : (
+                                <Link
+                                    href={`/event/${e.id}/register-form`}
+                                    className="block rounded-xl bg-stone-900 px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-stone-700"
+                                >
+                                    Register Form
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
 };
 
 export default Event;
