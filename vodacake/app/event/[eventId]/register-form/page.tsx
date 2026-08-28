@@ -122,99 +122,258 @@ export default function RegisterFormPage() {
     }
     
     return (
-        <div>
-            <h1>{eventData.title}</h1>
+        <main className="min-h-screen bg-[#FAF8F5] px-6 py-16">
+            <div className="mx-auto max-w-2xl">
 
-            <p>{eventData.description}</p>
-            <p>Registration: {`${registeredTeams} / ${eventData.max_teams}`}</p>
-            {registeredTeams >= eventData.max_teams &&(
-                <p>This event is full</p>
-            )}
-            <p>Date: {new Date(eventData.event_date).toLocaleString()}</p>
-            
-            <p>Location: {eventData.location}</p>
+                {/* Event Information */}
+                <div className="mb-8 rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+                    <div className="mb-6">
+                        <p className="mb-2 text-sm font-medium uppercase tracking-[0.2em] text-stone-500">
+                            Cake Party
+                        </p>
 
-            <p>Registration Deadline:
-                {new Date(eventData.registration_deadline).toLocaleString()}
-            </p>
+                        <h1 className="text-3xl font-semibold text-stone-900">
+                            {eventData.title}
+                        </h1>
 
-            {registeredSuccess && <h2>Team {register.teamName} has registered successful</h2>}
-            <h1>Register Form</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Team Name
-                    <input
-                        type="text"
-                        value={register.teamName}
-                        name='teamName'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    Team Leader (WeChat ID)
-                    <input
-                        type="text"
-                        value={register.teamLeader}
-                        name='teamLeader'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    Email Address
-                    <input
-                        type="text"
-                        value={register.email}
-                        name='email'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    numberOfPeople
-                    <input
-                        type="number"
-                        value={register.numberOfPeople}
-                        name='numberOfPeople'
-                        min={1}
-                        max={4}
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    dessertName
-                    <input
-                        type="text"
-                        value={register.dessertName}
-                        name='dessertName'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    dessertType
-                    <input
-                        type="text"
-                        value={register.dessertType}
-                        name='dessertType'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    dessertDescription
-                    <textarea
-                        value={register.dessertDescription}
-                        name='dessertDescription'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <label>
-                    Allergy Information
-                    <textarea
-                        value={register.allergyInfo}
-                        name='allergyInfo'
-                        onChange={(e) => handleInputChange(e)}
-                    />
-                </label>
-                <button type='submit'>Submit Register Form</button>
-            </form>
-        </div>
+                        {eventData.description && (
+                            <p className="mt-3 leading-7 text-stone-500">
+                                {eventData.description}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="space-y-3 border-t border-stone-100 pt-6 text-sm text-stone-600">
+                        <p>
+                            <span className="font-medium text-stone-900">
+                                Date:
+                            </span>{" "}
+                            {new Date(eventData.event_date).toLocaleString()}
+                        </p>
+
+                        <p>
+                            <span className="font-medium text-stone-900">
+                                Location:
+                            </span>{" "}
+                            {eventData.location}
+                        </p>
+
+                        <p>
+                            <span className="font-medium text-stone-900">
+                                Registration Deadline:
+                            </span>{" "}
+                            {new Date(
+                                eventData.registration_deadline
+                            ).toLocaleString()}
+                        </p>
+
+                        <p>
+                            <span className="font-medium text-stone-900">
+                                Registration:
+                            </span>{" "}
+                            {registeredTeams} / {eventData.max_teams} teams
+                        </p>
+                    </div>
+
+                    {registeredTeams >= eventData.max_teams && (
+                        <div className="mt-6 rounded-xl bg-stone-100 px-4 py-3 text-center text-sm font-medium text-stone-600">
+                            This event is full
+                        </div>
+                    )}
+                </div>
+
+                {/* Successful Registration */}
+                {registeredSuccess && (
+                    <div className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700">
+                        Team{" "}
+                        <span className="font-semibold">
+                            {register.teamName}
+                        </span>{" "}
+                        has registered successfully!
+                    </div>
+                )}
+
+                {/* Registration Form */}
+                <div>
+                    <div className="mb-6">
+                        <h2 className="text-2xl font-semibold text-stone-900">
+                            Register Your Team
+                        </h2>
+
+                        <p className="mt-2 text-sm text-stone-500">
+                            Tell us about your team and the dessert you are bringing.
+                        </p>
+                    </div>
+
+                    <form
+                        onSubmit={handleSubmit}
+                        className="space-y-6 rounded-2xl border border-stone-200 bg-white p-8 shadow-sm"
+                    >
+                        {/* Team Name */}
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Team Name
+                            </span>
+
+                            <input
+                                required
+                                type="text"
+                                value={register.teamName}
+                                name="teamName"
+                                onChange={(e) => handleInputChange(e)}
+                                placeholder="Your team name"
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+
+                        {/* Team Leader */}
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Team Leader
+                            </span>
+
+                            <span className="mb-2 block text-xs text-stone-400">
+                                WeChat ID
+                            </span>
+
+                            <input
+                                required
+                                type="text"
+                                value={register.teamLeader}
+                                name="teamLeader"
+                                onChange={(e) => handleInputChange(e)}
+                                placeholder="WeChat ID"
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+
+                        {/* Email */}
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Email Address
+                            </span>
+
+                            <input
+                                required
+                                type="email"
+                                value={register.email}
+                                name="email"
+                                onChange={(e) => handleInputChange(e)}
+                                placeholder="you@example.com"
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+
+                        {/* Number of People */}
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Number of People
+                            </span>
+
+                            <input
+                                required
+                                type="number"
+                                value={register.numberOfPeople}
+                                name="numberOfPeople"
+                                min={1}
+                                max={4}
+                                onChange={(e) => handleInputChange(e)}
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+
+                            <span className="mt-2 block text-xs text-stone-400">
+                                Each team may have 1–4 people.
+                            </span>
+                        </label>
+
+                        {/* Dessert section */}
+                        <div className="border-t border-stone-100 pt-6">
+                            <h3 className="mb-1 text-lg font-semibold text-stone-900">
+                                Dessert Information
+                            </h3>
+
+                            <p className="mb-6 text-sm text-stone-500">
+                                Tell us what your team plans to bring.
+                            </p>
+
+                            <div className="space-y-6">
+                                <label className="block">
+                                    <span className="mb-2 block text-sm font-medium text-stone-700">
+                                        Dessert Name
+                                    </span>
+
+                                    <input
+                                        required
+                                        type="text"
+                                        value={register.dessertName}
+                                        name="dessertName"
+                                        onChange={(e) => handleInputChange(e)}
+                                        placeholder="e.g. Matcha Strawberry Tart"
+                                        className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                                    />
+                                </label>
+
+                                <label className="block">
+                                    <span className="mb-2 block text-sm font-medium text-stone-700">
+                                        Dessert Type
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        value={register.dessertType}
+                                        name="dessertType"
+                                        onChange={(e) => handleInputChange(e)}
+                                        placeholder="e.g. Tart, Cheesecake, Choux"
+                                        className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                                    />
+                                </label>
+
+                                <label className="block">
+                                    <span className="mb-2 block text-sm font-medium text-stone-700">
+                                        Dessert Description
+                                    </span>
+
+                                    <textarea
+                                        value={register.dessertDescription}
+                                        name="dessertDescription"
+                                        onChange={(e) => handleInputChange(e)}
+                                        rows={4}
+                                        placeholder="Describe your dessert..."
+                                        className="w-full resize-none rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                                    />
+                                </label>
+
+                                <label className="block">
+                                    <span className="mb-2 block text-sm font-medium text-stone-700">
+                                        Allergy Information
+                                    </span>
+
+                                    <textarea
+                                        value={register.allergyInfo}
+                                        name="allergyInfo"
+                                        onChange={(e) => handleInputChange(e)}
+                                        rows={3}
+                                        placeholder="Please list any common allergens..."
+                                        className="w-full resize-none rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={
+                                registeredTeams >= eventData.max_teams
+                            }
+                            className="w-full rounded-xl bg-stone-900 px-5 py-3 font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300"
+                        >
+                            {registeredTeams >= eventData.max_teams
+                                ? "Registration Full"
+                                : "Submit Registration"}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
     );
 }
