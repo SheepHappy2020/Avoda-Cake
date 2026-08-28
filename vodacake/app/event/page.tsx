@@ -10,6 +10,11 @@ type EventItem = {
     location: string;
     event_date: string;
     registration_deadline: string;
+    max_teams: number;
+    status: string;
+    teams: {
+        count: number;
+    }[];
 };
 
 const Event = () => {
@@ -33,16 +38,36 @@ const Event = () => {
 
   return (
     <div>
-      {events.map((e) => (
-          <ul key={e.id }>
-              <li>{e.title}</li>
-              <li>{e.description}</li>
-              <li>{e.event_date}</li>
-              <li>{e.registration_deadline}</li>
-              <Link href={`/event/${e.id}/register-form`} className="text-blue-600 hover:underline">
-                  Register Form
-              </Link>
-        </ul>
+          {events.map((e) => (
+              <div key={e.id }>
+                <h2>{e.title}</h2>
+
+                <p>{e.description}</p>
+
+                <p>Location: {e.location}</p>
+
+                <p>
+                    Event Date:
+                    {new Date(e.event_date).toLocaleString()}
+                </p>
+
+                <p>
+                    Registration Deadline:
+                    {new Date(e.registration_deadline).toLocaleString()}
+                </p>
+
+                <p>Registration: {e.teams[0]?.count ?? 0} / {e.max_teams}</p>
+
+                <p>Status: {e.status}</p>
+                  
+                  {(e.teams[0]?.count ?? 0) >= e.max_teams ?
+                      (<p>Registration Has Full</p>)
+                      :
+                      (<Link href={`/event/${e.id}/register-form`} className="text-blue-600 hover:underline">
+                          Register Form
+                      </Link>)
+                }
+            </div>
       ))}
     </div>
   );

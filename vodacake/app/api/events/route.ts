@@ -4,7 +4,7 @@ export const GET = async (request: Request) => {
     try {
         const { data, error } = await supabase
             .from("events")
-            .select("id, title, description, event_date, registration_deadline, location, max_teams, status")
+            .select("id, title, description, event_date, registration_deadline, location, max_teams, status, teams(count)")
             .order("event_date", { ascending: true })
         if (error) {
             console.error("Get whole events supabase error")
