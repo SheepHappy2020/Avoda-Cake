@@ -74,49 +74,171 @@ export default function CreateEventPage() {
         }
     }
     return (
-        <div>
-            {registeredSuccessful && <h1>Event Create Successful</h1>}
-            {errorMessage && <p>{errorMessage}</p>}
-            <form onSubmit={handleOnSubmit}>
-                <label>
-                    Title
-                    <input required type="text" name='title' value={eventForm.title} onChange={(event)=>handleInputChange(event)} />
-                </label>
-                <label>
-                    Description
-                    <input type="text" name='description' value={eventForm.description ?? ""} onChange={(event) => handleInputChange(event)} />
-                </label>
-                <label>
-                    Event Date
-                    <input type="datetime-local" name='eventDate' value={eventForm.eventDate} onChange={(event) => handleInputChange(event)} />
-                </label>
-                <label>
-                    Register Dead Line
-                    <input type="datetime-local" name='registrationDeadline' value={eventForm.registrationDeadline} onChange={(event) => handleInputChange(event)} />
-                </label>
-                <label>
-                    Location
-                    <input type="text" name='location' value={eventForm.location} onChange={(event) => handleInputChange(event)} />
-                </label>
-                <label>
-                    Max Teams
-                    <input type="number" min={1} name='maxTeams' value={eventForm.maxTeams} onChange={(event) => handleInputChange(event)} />
-                </label>
-                <select
-                    name="status"
-                    value={eventForm.status}
-                    onChange={(e) =>
-                        setEventForm((prev) => ({
-                            ...prev,
-                            status: e.target.value,
-                        }))
-                    }
+        <main className="min-h-screen bg-[#FAF8F5] px-6 py-16">
+            <div className="mx-auto max-w-2xl">
+
+                {/* Page title */}
+                <div className="mb-8">
+                    <p className="mb-2 text-sm font-medium uppercase tracking-[0.2em] text-stone-500">
+                        Organizer
+                    </p>
+
+                    <h1 className="text-3xl font-semibold text-stone-900">
+                        Create Event
+                    </h1>
+
+                    <p className="mt-2 text-sm text-stone-500">
+                        Create a new cake party and open registration.
+                    </p>
+                </div>
+
+                {/* Success message */}
+                {registeredSuccessful && (
+                    <div className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                        Event Created Successfully
+                    </div>
+                )}
+
+                {/* Error message */}
+                {errorMessage && (
+                    <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        {errorMessage}
+                    </div>
+                )}
+
+                {/* Form card */}
+                <form
+                    onSubmit={handleOnSubmit}
+                    className="space-y-6 rounded-2xl border border-stone-200 bg-white p-8 shadow-sm"
                 >
-                    <option value="open">Open</option>
-                    <option value="closed">Closed</option>
-                </select>
-                <button type='submit'>Create Event</button>
-            </form>
-        </div>
+                    <label className="block">
+                        <span className="mb-2 block text-sm font-medium text-stone-700">
+                            Title
+                        </span>
+
+                        <input
+                            required
+                            type="text"
+                            name="title"
+                            value={eventForm.title}
+                            onChange={handleInputChange}
+                            placeholder="August Cake Party"
+                            className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                        />
+                    </label>
+
+                    <label className="block">
+                        <span className="mb-2 block text-sm font-medium text-stone-700">
+                            Description
+                        </span>
+
+                        <input
+                            type="text"
+                            name="description"
+                            value={eventForm.description ?? ""}
+                            onChange={handleInputChange}
+                            placeholder="Tell guests about this event..."
+                            className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                        />
+                    </label>
+
+                    {/* Dates */}
+                    <div className="grid gap-6 md:grid-cols-2">
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Event Date
+                            </span>
+
+                            <input
+                                required
+                                type="datetime-local"
+                                name="eventDate"
+                                value={eventForm.eventDate}
+                                onChange={handleInputChange}
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Registration Deadline
+                            </span>
+
+                            <input
+                                required
+                                type="datetime-local"
+                                name="registrationDeadline"
+                                value={eventForm.registrationDeadline}
+                                onChange={handleInputChange}
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+                    </div>
+
+                    <label className="block">
+                        <span className="mb-2 block text-sm font-medium text-stone-700">
+                            Location
+                        </span>
+
+                        <input
+                            required
+                            type="text"
+                            name="location"
+                            value={eventForm.location}
+                            onChange={handleInputChange}
+                            placeholder="Santa Clara, CA"
+                            className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                        />
+                    </label>
+
+                    {/* Max teams + status */}
+                    <div className="grid gap-6 md:grid-cols-2">
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Maximum Teams
+                            </span>
+
+                            <input
+                                required
+                                type="number"
+                                min={1}
+                                name="maxTeams"
+                                value={eventForm.maxTeams}
+                                onChange={handleInputChange}
+                                className="w-full rounded-xl border border-stone-300 px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            />
+                        </label>
+
+                        <label className="block">
+                            <span className="mb-2 block text-sm font-medium text-stone-700">
+                                Status
+                            </span>
+
+                            <select
+                                name="status"
+                                value={eventForm.status}
+                                onChange={(e) =>
+                                    setEventForm((prev) => ({
+                                        ...prev,
+                                        status: e.target.value,
+                                    }))
+                                }
+                                className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition focus:border-stone-500"
+                            >
+                                <option value="open">Open</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full rounded-xl bg-stone-900 px-5 py-3 font-medium text-white transition hover:bg-stone-700"
+                    >
+                        Create Event
+                    </button>
+                </form>
+            </div>
+        </main>
     );
 }
