@@ -6,15 +6,15 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#FAF8F5] px-6 py-16">
       <div className="mx-auto max-w-5xl">
         <h1 className="text-3xl font-bold mb-6">
-          Welcome
+          欢迎参加我们的蛋糕会
         </h1>
 
         <p>
           <Link
-            href="/login"
+            href="/organizer/login"
             className="text-blue-600 hover:underline"
           >
-            Login
+            Organizer Login
           </Link>
         </p>
 
