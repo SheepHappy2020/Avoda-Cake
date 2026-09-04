@@ -28,7 +28,7 @@ const OrganizerLoginPage = () => {
             return
         }
 
-        router.push("/organizer/create-event")
+        router.push("/organizer/events")
     }
 
     return (
