@@ -32,6 +32,7 @@ export default function RegisterFormPage() {
     const [loading, setLoading] = useState(true);
     const [registeredTeams, setRegisteredTeams] = useState(0)
     const [registeredSuccess, setRegisteredSuccess] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(()=>{
         const getEvent = async () =>{
@@ -106,6 +107,7 @@ export default function RegisterFormPage() {
         const registrationResult  = await response.json()
         console.log("Server reponse:", registrationResult )
         setRegisteredSuccess(true)
+        setIsSubmitting(true);
 
     };
 
@@ -363,13 +365,14 @@ export default function RegisterFormPage() {
                         <button
                             type="submit"
                             disabled={
-                                registeredTeams >= eventData.max_teams
+                                registeredTeams >= eventData.max_teams || isSubmitting
                             }
                             className="w-full rounded-xl bg-stone-900 px-5 py-3 font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300"
                         >
                             {registeredTeams >= eventData.max_teams
                                 ? "Registration Full"
-                                : "Submit Registration"}
+                                : isSubmitting ? "Registration Finished" : 
+                                "Submit Registration"}
                         </button>
                     </form>
                 </div>

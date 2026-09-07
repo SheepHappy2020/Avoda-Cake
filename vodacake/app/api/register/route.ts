@@ -28,6 +28,20 @@ export async function POST(request: Request){
             )
         }
 
+        const { data: existingTeam } = await supabase
+            .from("teams")
+            .select("id")
+            .eq("event_id", eventId)
+            .eq("team_leader", teamLeader)
+            .maybeSingle();
+
+        if (existingTeam) {
+            return Response.json(
+                { error: "You have already registered for this event." },
+                { status: 409 }
+            );
+        }
+
         if(numberOfPeople < 1 || numberOfPeople > 4){
             return Response.json(
                 {error: "number of people must be between 1 and 4"},
@@ -120,7 +134,14 @@ export async function POST(request: Request){
                 subject: "Cake Party Registration Confirmed",
                 html: `
                         <h1>Registration Confirmed!</h1>
-                        <p>Your team has successfully registered.</p>
+                        
+                        <p>Hi ${teamLeader},</p>
+
+                        <p>${teamName} has successfully registered.</p>
+                        <p>We are excited to have you join us with your ${dessertName}!</p>
+                        <p>More details about the event will be sent to you in wechat group.</p>
+
+                        <p>Thank you for Registration!</p>
                      `
             });
             return Response.json(
