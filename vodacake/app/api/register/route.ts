@@ -134,12 +134,12 @@ export async function POST(request: Request){
                 subject: "Cake Party Registration Confirmed",
                 html: `
                         <h1>Registration Confirmed!</h1>
-                        
+
                         <p>Hi ${teamLeader},</p>
 
                         <p>${teamName} has successfully registered.</p>
                         <p>We are excited to have you join us with your ${dessertName}!</p>
-                        <p>More details about the event will be sent to you in wechat group.</p>
+                        <p>More details about the event will be sent to you in Wechat group.</p>
 
                         <p>Thank you for Registration!</p>
                      `

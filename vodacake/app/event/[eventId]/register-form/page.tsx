@@ -362,7 +362,7 @@ export default function RegisterFormPage() {
                         <button
                             type="submit"
                             disabled={
-                                registeredTeams >= eventData.max_teams || isSubmitting
+                                registeredTeams >= eventData.max_teams || registeredSuccess
                             }
                             className="w-full rounded-xl bg-stone-900 px-5 py-3 font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300"
                         >
