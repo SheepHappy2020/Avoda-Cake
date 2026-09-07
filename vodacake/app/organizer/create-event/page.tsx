@@ -234,6 +234,7 @@ export default function CreateEventPage() {
                     <button
                         type="submit"
                         className="w-full rounded-xl bg-stone-900 px-5 py-3 font-medium text-white transition hover:bg-stone-700"
+                        disabled={registeredSuccessful}
                     >
                         Create Event
                     </button>

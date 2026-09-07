@@ -32,7 +32,6 @@ export default function RegisterFormPage() {
     const [loading, setLoading] = useState(true);
     const [registeredTeams, setRegisteredTeams] = useState(0)
     const [registeredSuccess, setRegisteredSuccess] = useState(false)
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(()=>{
         const getEvent = async () =>{
@@ -107,8 +106,6 @@ export default function RegisterFormPage() {
         const registrationResult  = await response.json()
         console.log("Server reponse:", registrationResult )
         setRegisteredSuccess(true)
-        setIsSubmitting(true);
-
     };
 
     if(loading){
@@ -371,7 +368,7 @@ export default function RegisterFormPage() {
                         >
                             {registeredTeams >= eventData.max_teams
                                 ? "Registration Full"
-                                : isSubmitting ? "Registration Finished" : 
+                                : registeredSuccess ? "Registration Finished" : 
                                 "Submit Registration"}
                         </button>
                     </form>
